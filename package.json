@@ -1,0 +1,47 @@
+{
+  "name": "promosyonoyuncak",
+  "version": "1.0.0",
+  "description": "Profesyonel e-ticaret sitesi - Promosyon Oyuncak",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@prisma/client": "^5.22.0",
+    "next-auth": "^4.24.10",
+    "bcryptjs": "^2.4.3",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.5",
+    "react-hot-toast": "^2.4.1",
+    "axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4",
+    "lucide-react": "^0.453.0",
+    "nodemailer": "^7.0.7",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/nodemailer": "^6.4.16",
+    "prisma": "^5.22.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15",
+    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
