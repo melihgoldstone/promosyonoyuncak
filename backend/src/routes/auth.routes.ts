@@ -56,8 +56,8 @@ router.post('/register', async (req: Request, res: Response) => {
     // Generate JWT
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '30d' }
+      process.env.JWT_SECRET as string,
+      { expiresIn: (process.env.JWT_EXPIRES_IN || '30d') as string }
     );
 
     res.status(201).json({
@@ -101,8 +101,8 @@ router.post('/login', async (req: Request, res: Response) => {
     // Generate JWT
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '30d' }
+      process.env.JWT_SECRET as string,
+      { expiresIn: (process.env.JWT_EXPIRES_IN || '30d') as string }
     );
 
     res.json({
@@ -134,7 +134,7 @@ router.get('/me', async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Token required' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
