@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { z } from 'zod';
 import prisma from '../config/database';
 
@@ -54,10 +54,14 @@ router.post('/register', async (req: Request, res: Response) => {
     });
 
     // Generate JWT token
+    const jwtSecret = process.env.JWT_SECRET as string;
+    const jwtExpiry = (process.env.JWT_EXPIRES_IN || '30d') as string;
+    const jwtOptions: SignOptions = { expiresIn: jwtExpiry };
+    
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET as string,
-      { expiresIn: (process.env.JWT_EXPIRES_IN || '30d') as string }
+      jwtSecret,
+      jwtOptions
     );
 
     res.status(201).json({
@@ -99,10 +103,14 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     // Generate JWT token
+    const jwtSecret = process.env.JWT_SECRET as string;
+    const jwtExpiry = (process.env.JWT_EXPIRES_IN || '30d') as string;
+    const jwtOptions: SignOptions = { expiresIn: jwtExpiry };
+    
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET as string,
-      { expiresIn: (process.env.JWT_EXPIRES_IN || '30d') as string }
+      jwtSecret,
+      jwtOptions
     );
 
     res.json({
