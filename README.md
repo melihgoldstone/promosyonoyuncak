@@ -33,106 +33,140 @@ Türkiye'nin güvenilir toptan promosyon oyuncak tedarikçisi için geliştirilm
 - ✅ Email bildirimleri
 
 ### 🎨 Teknik Stack
-- **Frontend:** Next.js 14 (App Router)
-- **Backend:** Next.js API Routes
-- **Database:** PostgreSQL
-- **ORM:** Prisma
-- **Authentication:** NextAuth.js
-- **Styling:** Tailwind CSS
-- **UI Icons:** Lucide React
-- **Payment:** iyzico (Türkiye)
-- **Email:** Nodemailer
-- **Language:** TypeScript
+
+**Frontend:**
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Zustand (State Management)
+- NextAuth.js (Authentication)
+- Lucide React (Icons)
+
+**Backend (Standalone API):**
+- Express.js
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- JWT Authentication
+- Zod Validation
+- Docker Ready
+
+**Additional:**
+- iyzico Payment Gateway (Türkiye)
+- Nodemailer (Email)
+- Docker & Docker Compose
+- Helmet.js (Security)
+- Morgan (Logging)
+
+## 📁 Proje Yapısı
+
+```
+promosyonoyuncak/
+├── backend/              # Standalone Express API
+│   ├── src/             # Backend source code
+│   ├── prisma/          # Database schema
+│   ├── Dockerfile       # Backend container
+│   └── README.md        # Backend documentation
+├── app/                 # Next.js Frontend
+├── components/          # React components
+├── lib/                 # Utilities and stores
+├── prisma/              # Frontend Prisma (if needed)
+├── docker-compose.yml   # Full stack deployment
+└── DEPLOYMENT.md        # Deployment guide
+```
 
 ## 📋 Gereksinimler
 
 - Node.js 18.17.0 veya üzeri
 - PostgreSQL 14 veya üzeri
 - npm veya yarn
+- Docker (opsiyonel, deployment için)
 
-## 🚀 Kurulum
+## 🚀 Hızlı Başlangıç
 
-### 1. Projeyi Klonlayın
+### Seçenek 1: Docker ile (Önerilen)
 
 \`\`\`bash
+# 1. Projeyi klonlayın
 git clone <repository-url>
 cd promosyonoyuncak
-\`\`\`
 
-### 2. Bağımlılıkları Yükleyin
-
-\`\`\`bash
-npm install --legacy-peer-deps
-\`\`\`
-
-### 3. Environment Değişkenlerini Ayarlayın
-
-\`.env.example\` dosyasını \`.env\` olarak kopyalayın ve gerekli değerleri doldurun:
-
-\`\`\`bash
+# 2. Backend environment variables
+cd backend
 cp .env.example .env
+# .env dosyasını düzenleyin
+cd ..
+
+# 3. Docker ile çalıştırın
+docker-compose up -d
+
+# Backend: http://localhost:5000
+# Database: localhost:5432
 \`\`\`
 
-\`.env\` dosyasını düzenleyin:
+### Seçenek 2: Manuel Kurulum
 
-\`\`\`env
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/promosyonoyuncak"
-
-# NextAuth
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key-change-this-in-production"
-
-# Email (SMTP)
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="your-email@gmail.com"
-SMTP_PASSWORD="your-password"
-SMTP_FROM="noreply@promosyonoyuncak.com"
-
-# iyzico Payment Gateway
-IYZICO_API_KEY="your-iyzico-api-key"
-IYZICO_SECRET_KEY="your-iyzico-secret-key"
-IYZICO_BASE_URL="https://sandbox-api.iyzipay.com"
-
-# Site Settings
-NEXT_PUBLIC_SITE_URL="http://localhost:3000"
-NEXT_PUBLIC_SITE_NAME="Promosyon Oyuncak"
-\`\`\`
-
-### 4. PostgreSQL Veritabanını Oluşturun
+#### Backend API
 
 \`\`\`bash
-# PostgreSQL'e bağlanın
-psql -U postgres
+cd backend
 
-# Veritabanını oluşturun
-CREATE DATABASE promosyonoyuncak;
+# Bağımlılıkları yükle
+npm install
 
-# Çıkış
-\\q
-\`\`\`
-
-### 5. Prisma Migration ve Seed
-
-\`\`\`bash
-# Prisma client oluşturun (eğer hata verirse PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1 ekleyin)
-npx prisma generate
+# Environment variables
+cp .env.example .env
+# .env dosyasını düzenleyin
 
 # Database migration
-npx prisma migrate dev --name init
+npx prisma generate
+npx prisma migrate dev
 
-# (Opsiyonel) Seed data
-npx prisma db seed
+# Development server
+npm run dev
+
+# Backend: http://localhost:5000
 \`\`\`
 
-### 6. Development Server'ı Başlatın
+#### Frontend
 
 \`\`\`bash
+# Ana dizinde
+npm install --legacy-peer-deps
+
+# Environment variables
+cp .env.example .env
+# .env dosyasını düzenleyin
+
+# Development server
 npm run dev
+
+# Frontend: http://localhost:3000
 \`\`\`
 
-Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
+## ⚙️ Environment Variables
+
+### Backend (\`backend/.env\`)
+
+\`\`\`env
+NODE_ENV=development
+PORT=5000
+DATABASE_URL="postgresql://user:password@localhost:5432/promosyonoyuncak"
+JWT_SECRET="your-super-secret-jwt-key"
+JWT_EXPIRES_IN="30d"
+FRONTEND_URL="http://localhost:3000"
+IYZICO_API_KEY="your-key"
+IYZICO_SECRET_KEY="your-secret"
+IYZICO_BASE_URL="https://sandbox-api.iyzipay.com"
+\`\`\`
+
+### Frontend (\`.env\`)
+
+\`\`\`env
+NEXT_PUBLIC_API_URL="http://localhost:5000/api"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
+\`\`\`
 
 ## 📁 Proje Yapısı
 
@@ -205,35 +239,35 @@ SMTP_FROM="noreply@promosyonoyuncak.com"
 
 ## 🚀 Production Deployment
 
-### 1. Environment Variables
+### Önerilen Mimari
 
-Production environment variables'ları ayarlayın:
-- \`NEXTAUTH_SECRET\` değiştirin (güçlü bir secret)
-- \`IYZICO_BASE_URL\` production URL'ye değiştirin
-- \`DATABASE_URL\` production database'e yönlendirin
-- SSL sertifikası ekleyin
+**Backend:** Railway / Render / DigitalOcean
+**Frontend:** Vercel / Netlify
+**Database:** Railway PostgreSQL / Render PostgreSQL
 
-### 2. Build
+### Hızlı Deployment
 
 \`\`\`bash
-npm run build
-npm start
+# Backend - Railway
+cd backend
+railway up
+
+# Frontend - Vercel
+vercel --prod
 \`\`\`
 
-### 3. Deploy Platformları
+**Detaylı deployment rehberi için:** [DEPLOYMENT.md](./DEPLOYMENT.md) dosyasına bakın.
 
-Önerilen platformlar:
-- **Vercel** (Next.js için optimize)
-- **DigitalOcean**
-- **AWS**
-- **Google Cloud**
+### Docker ile Production
 
-### 4. SSL Sertifikası
+\`\`\`bash
+# Full stack deployment
+docker-compose up -d
 
-E-ticaret için SSL zorunludur:
-- Let's Encrypt (ücretsiz)
-- Cloudflare
-- Ticari SSL sağlayıcıları
+# Nginx reverse proxy ekle
+# SSL sertifikası (Let's Encrypt)
+certbot --nginx -d yourdomain.com
+\`\`\`
 
 ## 📝 Geliştirme Planı
 
@@ -244,16 +278,15 @@ E-ticaret için SSL zorunludur:
 - [x] Güvenlik headers yapılandırması
 
 ### Yapılacaklar 🚧
-- [ ] NextAuth.js authentication
-- [ ] Ürün CRUD API'leri
-- [ ] Admin paneli
-- [ ] Sepet sistemi
-- [ ] iyzico ödeme entegrasyonu
-- [ ] Sipariş yönetimi
-- [ ] Email bildirimleri
-- [ ] Ürün arama ve filtreleme
-- [ ] Responsive mobil tasarım
+- [ ] iyzico gerçek ödeme entegrasyonu
+- [ ] Email bildirimleri (SMTP configuration)
+- [ ] Ürün görselleri upload sistemi
+- [ ] Sipariş tracking sistemi
+- [ ] Analytics dashboard
+- [ ] Responsive mobil optimizasyon
 - [ ] SEO optimizasyonu
+- [ ] PWA support
+- [ ] Çoklu dil desteği
 
 ## 🛡️ Güvenlik
 
