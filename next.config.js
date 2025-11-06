@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Backend klasörünü TypeScript ve ESLint'ten hariç tut
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    dirs: ['app', 'components', 'lib'], // Sadece bu klasörleri tara
+  },
   images: {
     remotePatterns: [
       {

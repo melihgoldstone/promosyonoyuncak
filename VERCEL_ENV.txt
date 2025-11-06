@@ -1,0 +1,33 @@
+# 🎨 Vercel Environment Variables
+# Bu değerleri Vercel Dashboard'da ekleyin
+
+# Backend API URL (Render'dan aldığınız URL)
+NEXT_PUBLIC_API_URL=https://promosyonoyuncak.onrender.com/api
+
+# Database (Render PostgreSQL Internal URL)
+DATABASE_URL=postgresql://promosyonoyuncak_user:fkCOEQU7huZQ9fyfr3nLe6vyMSNDpblY@dpg-d46blbuuk2gs73d2grs0-a/promosyonoyuncak
+
+# NextAuth (Production)
+NEXTAUTH_URL=https://promosyonoyuncak.vercel.app
+NEXTAUTH_SECRET=BURAYA_GÜVENLİ_BİR_KEY_GİR
+
+# Email (SMTP) - Gmail kullanıyorsanız App Password gerekir
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+SMTP_FROM=noreply@promosyonoyuncak.com
+
+# iyzico Payment Gateway
+IYZICO_API_KEY=your-iyzico-api-key
+IYZICO_SECRET_KEY=your-iyzico-secret-key
+IYZICO_BASE_URL=https://sandbox-api.iyzipay.com
+
+# Site Settings
+NEXT_PUBLIC_SITE_URL=https://promosyonoyuncak.vercel.app
+NEXT_PUBLIC_SITE_NAME=Promosyon Oyuncak
+
+# ============================================
+# NEXTAUTH_SECRET oluşturmak için PowerShell'de çalıştırın:
+# [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((New-Guid).Guid))
+# ============================================
