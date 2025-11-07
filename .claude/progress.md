@@ -11,7 +11,7 @@
 ```
 [██░░░░░░░░] 10% Complete
 
-Phase 1: Foundation           [███░░░░░░░] 30%
+Phase 1: FounSdation           [███░░░░░░░] 30%
 Phase 2: E-Commerce           [░░░░░░░░░░]  0%
 Phase 3: Admin Panel          [░░░░░░░░░░]  0%
 Phase 4: Security & Optim.    [░░░░░░░░░░]  0%
