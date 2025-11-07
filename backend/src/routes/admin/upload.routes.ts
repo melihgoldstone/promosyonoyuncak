@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { authenticateToken, requireAdmin } from '../../middleware/auth.middleware'
 import { upload, handleMulterError } from '../../middleware/upload.middleware'
 import {
@@ -20,7 +20,7 @@ router.post(
   requireAdmin,
   upload.array('images', 10), // Field name: 'images', max 10 files
   handleMulterError,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const files = req.files as Express.Multer.File[]
 
@@ -54,7 +54,7 @@ router.delete(
   '/:publicId',
   authenticateToken,
   requireAdmin,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const { publicId } = req.params
 
@@ -87,7 +87,7 @@ router.post(
   '/delete-multiple',
   authenticateToken,
   requireAdmin,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const { publicIds } = req.body
 
