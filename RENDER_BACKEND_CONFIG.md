@@ -27,7 +27,7 @@ PORT=5000
 DATABASE_URL=postgresql://promosyonoyuncak_user:fkCOEQU7huZQ9fyfr3nLe6vyMSNDpblY@dpg-d46blbuuk2gs73d2grs0-a/promosyonoyuncak
 JWT_SECRET=<güçlü-random-key>
 JWT_EXPIRES_IN=30d
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:3000,https://promosyonoyuncak.com
 ```
 
 ### Plan:
