@@ -164,4 +164,51 @@ router.get('/me', async (req: Request, res: Response) => {
   }
 });
 
+// POST /api/auth/create-admin (TEMPORARY - Remove in production)
+router.post('/create-admin', async (req: Request, res: Response) => {
+  try {
+    const { email, password, name } = req.body;
+
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'Email, password, and name are required' });
+    }
+
+    // Check if admin already exists
+    const existingAdmin = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingAdmin) {
+      return res.status(400).json({ error: 'Admin with this email already exists' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create admin user
+    const admin = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        role: 'ADMIN',
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+      },
+    });
+
+    res.status(201).json({
+      message: 'Admin user created successfully',
+      admin,
+    });
+  } catch (error) {
+    console.error('Create admin error:', error);
+    res.status(500).json({ error: 'Failed to create admin user' });
+  }
+});
+
 export default router;
