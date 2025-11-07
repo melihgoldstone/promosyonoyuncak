@@ -3,11 +3,10 @@ import apiClient from './client'
 export interface User {
   id: string
   email: string
-  firstName: string
-  lastName: string
+  name: string
   phone?: string
-  role: 'USER' | 'ADMIN'
-  createdAt: string
+  role: 'CUSTOMER' | 'ADMIN'
+  createdAt?: string
 }
 
 export interface LoginRequest {
@@ -18,8 +17,7 @@ export interface LoginRequest {
 export interface RegisterRequest {
   email: string
   password: string
-  firstName: string
-  lastName: string
+  name: string
   phone?: string
 }
 
