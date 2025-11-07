@@ -1,39 +1,11 @@
-import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default withAuth(
-  function middleware(req) {
-    const token = req.nextauth.token;
-    const isAdmin = token?.role === "ADMIN";
-    const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
-
-    // Admin olmayan kullanıcılar admin sayfalarına erişemez
-    if (isAdminRoute && !isAdmin) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-
-    return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        const { pathname } = req.nextUrl;
-
-        // Admin routes require authentication
-        if (pathname.startsWith("/admin")) {
-          return !!token;
-        }
-
-        // Hesabım routes require authentication
-        if (pathname.startsWith("/hesabim")) {
-          return !!token;
-        }
-
-        return true;
-      },
-    },
-  }
-);
+// This is a placeholder middleware - actual auth checking happens client-side
+// using useAuth hook in protected layouts
+export function middleware(req: NextRequest) {
+  return NextResponse.next();
+}
 
 export const config = {
   matcher: ["/admin/:path*", "/hesabim/:path*"],
