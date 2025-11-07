@@ -1,178 +1,130 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import toast from "react-hot-toast";
+import { useState } from 'react'
+import Link from 'next/link'
+import { Mail, Lock, ArrowRight } from 'lucide-react'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { login, loading, error } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
+    e.preventDefault()
     try {
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        toast.error(result.error);
-      } else {
-        toast.success("Giriş başarılı!");
-        router.push("/");
-        router.refresh();
-      }
-    } catch (error) {
-      toast.error("Bir hata oluştu");
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+      await login({ email, password })
+    } catch (err) {
+      console.error('Login failed:', err)
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <Link href="/" className="text-3xl font-bold text-primary-600">
-            🎮 Promosyon Oyuncak
-          </Link>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
-            Hesabınıza Giriş Yapın
-          </h2>
-          <p className="mt-2 text-gray-600">
-            Henüz hesabınız yok mu?{" "}
-            <Link
-              href="/kayit"
-              className="text-primary-600 hover:text-primary-700 font-semibold"
-            >
-              Kayıt Olun
-            </Link>
-          </p>
-        </div>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
 
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Email Adresi
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                placeholder="ornek@email.com"
-              />
-            </div>
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-md mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">
+              Giriş Yap
+            </h1>
+            <p className="text-gray-600 text-center mb-8">
+              Hesabınıza giriş yaparak alışverişe devam edin
+            </p>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Şifre
-              </label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                placeholder="••••••••"
-              />
-            </div>
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember"
-                  className="ml-2 block text-sm text-gray-700"
-                >
-                  Beni Hatırla
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  E-posta
                 </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="ornek@email.com"
+                  />
+                </div>
               </div>
 
-              <Link
-                href="/sifremi-unuttum"
-                className="text-sm text-primary-600 hover:text-primary-700"
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Şifre
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="••••••••"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                  />
+                  <span className="ml-2 text-sm text-gray-600">Beni hatırla</span>
+                </label>
+                <Link
+                  href="/sifremi-unuttum"
+                  className="text-sm text-primary-600 hover:text-primary-700"
+                >
+                  Şifremi unuttum
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold"
               >
-                Şifremi Unuttum?
-              </Link>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "Giriş Yapılıyor..." : "Giriş Yap"}
-            </button>
-          </form>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  veya
-                </span>
-              </div>
-            </div>
+                {loading ? (
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                ) : (
+                  <>
+                    Giriş Yap
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
+              </button>
+            </form>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
-                İşletme hesabı mı arıyorsunuz?{" "}
-                <Link
-                  href="/toptan-basvuru"
-                  className="text-primary-600 hover:text-primary-700 font-semibold"
-                >
-                  Toptan Satış Başvurusu
+                Hesabınız yok mu?{' '}
+                <Link href="/kayit" className="text-primary-600 hover:text-primary-700 font-medium">
+                  Kayıt Ol
                 </Link>
               </p>
             </div>
           </div>
         </div>
-
-        <p className="mt-8 text-center text-sm text-gray-600">
-          Giriş yaparak{" "}
-          <Link href="/kullanim-kosullari" className="text-primary-600 hover:underline">
-            Kullanım Koşullarını
-          </Link>{" "}
-          ve{" "}
-          <Link href="/gizlilik-politikasi" className="text-primary-600 hover:underline">
-            Gizlilik Politikasını
-          </Link>{" "}
-          kabul etmiş olursunuz.
-        </p>
       </div>
+
+      <Footer />
     </div>
-  );
+  )
 }

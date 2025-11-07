@@ -60,13 +60,13 @@ export default function RegisterPage() {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <Link href="/" className="text-3xl font-bold text-primary-600">
-            🎮 Promosyon Oyuncak
+            Promosyon Oyuncak
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Hesap Oluşturun
           </h2>
           <p className="mt-2 text-gray-600">
-            Zaten hesabınız var mı?{" "}
+            Zaten hesabınız var mı?{' '}
             <Link
               href="/giris"
               className="text-primary-600 hover:text-primary-700 font-semibold"

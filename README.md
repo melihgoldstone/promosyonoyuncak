@@ -1,318 +1,219 @@
-# 🎮 Promosyon Oyuncak - E-Ticaret Platformu
+# PROMOSYONOYUNCAK.COM
 
-Türkiye'nin güvenilir toptan promosyon oyuncak tedarikçisi için geliştirilmiş, modern, güvenli ve yasal gerekliliklere uygun profesyonel e-ticaret platformu.
+Professional B2B e-commerce platform for wholesale toys and party supplies.
 
-## ✨ Özellikler
+## Tech Stack
 
-### 🔐 Güvenlik
-- ✅ SSL/TLS şifreleme
-- ✅ PCI DSS uyumlu ödeme sistemi (iyzico entegrasyonu)
-- ✅ XSS ve CSRF koruması
-- ✅ Rate limiting
-- ✅ Güvenli HTTP headers (HSTS, CSP, X-Frame-Options)
-- ✅ Şifrelenmiş veri saklama
+### Frontend
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** Zustand
+- **HTTP Client:** Axios
+- **Icons:** Lucide React
+- **Carousel:** Embla Carousel
+- **Forms:** React Hook Form + Zod
+- **Notifications:** React Hot Toast
 
-### ⚖️ Yasal Uyumluluk (Türkiye)
-- ✅ KVKK (Kişisel Verilerin Korunması Kanunu) uyumlu
-- ✅ Mesafeli Satış Sözleşmesi
-- ✅ Gizlilik Politikası
-- ✅ Kullanım Koşulları
-- ✅ Çerez Politikası
-- ✅ Tüm yasal metinler hazır
+### Backend
+- **Runtime:** Node.js 18+
+- **Framework:** Express.js
+- **Language:** TypeScript
+- **ORM:** Prisma
+- **Database:** PostgreSQL 14+
+- **Authentication:** JWT
+- **Image Storage:** Cloudinary
+- **Image Processing:** Sharp.js
 
-### 🛒 E-Ticaret Özellikleri
-- ✅ Ürün katalog sistemi
-- ✅ Kategori yönetimi
-- ✅ Sepet sistemi
-- ✅ Güvenli ödeme (iyzico)
-- ✅ Sipariş takibi
-- ✅ Toptan fiyatlandırma (miktar bazlı indirim)
-- ✅ Kullanıcı hesap yönetimi
-- ✅ Admin paneli
-- ✅ Stok takibi
-- ✅ Email bildirimleri
+## Features
 
-### 🎨 Teknik Stack
+### Customer Features
+- Product catalog with search and filters
+- Product detail pages with image galleries
+- Shopping cart with persistent storage
+- User authentication (register/login)
+- Multi-step checkout process
+- Order management
+- Responsive design (mobile, tablet, desktop)
 
-**Frontend:**
-- Next.js 14 (App Router)
-- TypeScript
-- Tailwind CSS
-- Zustand (State Management)
-- NextAuth.js (Authentication)
-- Lucide React (Icons)
+### Admin Features
+- Admin dashboard with statistics
+- Product management (CRUD)
+- Order management with status tracking
+- User management
+- Image upload system
+- Secure admin-only routes
 
-**Backend (Standalone API):**
-- Express.js
-- TypeScript
-- Prisma ORM
-- PostgreSQL
-- JWT Authentication
-- Zod Validation
-- Docker Ready
-
-**Additional:**
-- iyzico Payment Gateway (Türkiye)
-- Nodemailer (Email)
-- Docker & Docker Compose
-- Helmet.js (Security)
-- Morgan (Logging)
-
-## 📁 Proje Yapısı
+## Project Structure
 
 ```
 promosyonoyuncak/
-├── backend/              # Standalone Express API
-│   ├── src/             # Backend source code
-│   ├── prisma/          # Database schema
-│   ├── Dockerfile       # Backend container
-│   └── README.md        # Backend documentation
-├── app/                 # Next.js Frontend
-├── components/          # React components
-├── lib/                 # Utilities and stores
-├── prisma/              # Frontend Prisma (if needed)
-├── docker-compose.yml   # Full stack deployment
-└── DEPLOYMENT.md        # Deployment guide
+├── app/                      # Next.js app directory
+│   ├── admin/               # Admin panel pages
+│   │   ├── layout.tsx       # Admin layout with sidebar
+│   │   ├── page.tsx         # Admin dashboard
+│   │   ├── urunler/         # Products management
+│   │   └── siparisler/      # Orders management
+│   ├── giris/               # Login page
+│   ├── kayit/               # Register page
+│   ├── sepet/               # Shopping cart
+│   ├── odeme/               # Checkout page
+│   ├── urun/                # Product detail
+│   ├── kategori/            # Category pages
+│   ├── error.tsx            # Global error page
+│   ├── loading.tsx          # Global loading page
+│   └── not-found.tsx        # 404 page
+├── lib/
+│   ├── api/                 # API client layer
+│   │   ├── client.ts        # Axios configuration
+│   │   ├── auth.ts          # Auth API
+│   │   ├── products.ts      # Products API
+│   │   ├── categories.ts    # Categories API
+│   │   └── orders.ts        # Orders API
+│   ├── store/               # Zustand stores
+│   │   └── cart-store.ts    # Shopping cart state
+│   └── utils.ts             # Utility functions
+├── hooks/
+│   ├── useProducts.ts       # Product data fetching
+│   └── useAuth.ts           # Authentication hook
+├── components/
+│   ├── home/                # Homepage components
+│   ├── layout/              # Layout components
+│   └── ui/                  # Reusable UI components
+├── backend/                 # Express.js backend
+│   ├── src/
+│   │   ├── routes/          # API routes
+│   │   ├── services/        # Business logic
+│   │   ├── config/          # Configuration
+│   │   └── prisma/          # Prisma schema
+│   └── package.json
+└── tailwind.config.ts       # Tailwind configuration
 ```
 
-## 📋 Gereksinimler
+## Getting Started
 
-- Node.js 18.17.0 veya üzeri
-- PostgreSQL 14 veya üzeri
-- npm veya yarn
-- Docker (opsiyonel, deployment için)
+### Prerequisites
+- Node.js 18+
+- PostgreSQL 14+
+- Cloudinary account
 
-## 🚀 Hızlı Başlangıç
+### Installation
 
-### Seçenek 1: Docker ile (Önerilen)
-
-\`\`\`bash
-# 1. Projeyi klonlayın
-git clone <repository-url>
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/promosyonoyuncak.git
 cd promosyonoyuncak
+```
 
-# 2. Backend environment variables
-cd backend
-cp .env.example .env
-# .env dosyasını düzenleyin
-cd ..
-
-# 3. Docker ile çalıştırın
-docker-compose up -d
-
-# Backend: http://localhost:5000
-# Database: localhost:5432
-\`\`\`
-
-### Seçenek 2: Manuel Kurulum
-
-#### Backend API
-
-\`\`\`bash
-cd backend
-
-# Bağımlılıkları yükle
+2. Install frontend dependencies:
+```bash
 npm install
+```
 
-# Environment variables
-cp .env.example .env
-# .env dosyasını düzenleyin
-
-# Database migration
-npx prisma generate
-npx prisma migrate dev
-
-# Development server
-npm run dev
-
-# Backend: http://localhost:5000
-\`\`\`
-
-#### Frontend
-
-\`\`\`bash
-# Ana dizinde
-npm install --legacy-peer-deps
-
-# Environment variables
-cp .env.example .env
-# .env dosyasını düzenleyin
-
-# Development server
-npm run dev
-
-# Frontend: http://localhost:3000
-\`\`\`
-
-## ⚙️ Environment Variables
-
-### Backend (\`backend/.env\`)
-
-\`\`\`env
-NODE_ENV=development
-PORT=5000
-DATABASE_URL="postgresql://user:password@localhost:5432/promosyonoyuncak"
-JWT_SECRET="your-super-secret-jwt-key"
-JWT_EXPIRES_IN="30d"
-FRONTEND_URL="http://localhost:3000"
-IYZICO_API_KEY="your-key"
-IYZICO_SECRET_KEY="your-secret"
-IYZICO_BASE_URL="https://sandbox-api.iyzipay.com"
-\`\`\`
-
-### Frontend (\`.env\`)
-
-\`\`\`env
-NEXT_PUBLIC_API_URL="http://localhost:5000/api"
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
-\`\`\`
-
-## 📁 Proje Yapısı
-
-\`\`\`
-promosyonoyuncak/
-├── app/                          # Next.js 14 App Router
-│   ├── page.tsx                  # Ana sayfa
-│   ├── layout.tsx                # Root layout
-│   ├── globals.css               # Global styles
-│   ├── kvkk/                     # KVKK sayfası
-│   ├── gizlilik-politikasi/      # Gizlilik politikası
-│   ├── mesafeli-satis-sozlesmesi/# Mesafeli satış sözleşmesi
-│   ├── kullanim-kosullari/       # Kullanım koşulları
-│   └── cerez-politikasi/         # Çerez politikası
-├── components/                   # React bileşenleri
-├── lib/                          # Utility fonksiyonları
-│   ├── prisma.ts                 # Prisma client
-│   └── utils.ts                  # Yardımcı fonksiyonlar
-├── prisma/
-│   └── schema.prisma             # Database şeması
-├── public/                       # Statik dosyalar
-├── .env                          # Environment variables
-├── next.config.js                # Next.js konfigürasyonu
-├── tailwind.config.ts            # Tailwind konfigürasyonu
-├── tsconfig.json                 # TypeScript konfigürasyonu
-└── package.json                  # Paket bağımlılıkları
-\`\`\`
-
-## 🗄️ Database Şeması
-
-Proje aşağıdaki temel modelleri içerir:
-
-- **User**: Kullanıcı hesapları (müşteri ve admin)
-- **Address**: Teslimat adresleri
-- **Category**: Ürün kategorileri (hiyerarşik)
-- **Product**: Ürünler
-- **PriceRule**: Toptan fiyat kuralları
-- **Cart**: Sepet
-- **CartItem**: Sepet ürünleri
-- **Order**: Siparişler
-- **OrderItem**: Sipariş ürünleri
-- **Setting**: Site ayarları
-
-## 🔧 Yapılandırma
-
-### iyzico Ödeme Entegrasyonu
-
-1. [iyzico](https://www.iyzico.com/) hesabı oluşturun
-2. API anahtarlarınızı alın
-3. \`.env\` dosyasına ekleyin:
-
-\`\`\`env
-IYZICO_API_KEY="your-api-key"
-IYZICO_SECRET_KEY="your-secret-key"
-IYZICO_BASE_URL="https://sandbox-api.iyzipay.com"  # Test için
-# Production: https://api.iyzipay.com
-\`\`\`
-
-### Email Konfigürasyonu
-
-SMTP ayarlarını yapılandırın (Gmail örneği):
-
-\`\`\`env
-SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="your-email@gmail.com"
-SMTP_PASSWORD="your-app-password"  # 2FA etkinse App Password kullanın
-SMTP_FROM="noreply@promosyonoyuncak.com"
-\`\`\`
-
-## 🚀 Production Deployment
-
-### Önerilen Mimari
-
-**Backend:** Railway / Render / DigitalOcean
-**Frontend:** Vercel / Netlify
-**Database:** Railway PostgreSQL / Render PostgreSQL
-
-### Hızlı Deployment
-
-\`\`\`bash
-# Backend - Railway
+3. Install backend dependencies:
+```bash
 cd backend
-railway up
+npm install
+```
 
-# Frontend - Vercel
-vercel --prod
-\`\`\`
+4. Set up environment variables:
 
-**Detaylı deployment rehberi için:** [DEPLOYMENT.md](./DEPLOYMENT.md) dosyasına bakın.
+**Backend (.env):**
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/promosyonoyuncak"
+JWT_SECRET="your-secret-key"
+CLOUDINARY_CLOUD_NAME="your-cloud-name"
+CLOUDINARY_API_KEY="your-api-key"
+CLOUDINARY_API_SECRET="your-api-secret"
+PORT=5000
+```
 
-### Docker ile Production
+**Frontend (.env.local):**
+```env
+NEXT_PUBLIC_API_URL="http://localhost:5000/api"
+```
 
-\`\`\`bash
-# Full stack deployment
-docker-compose up -d
+5. Set up the database:
+```bash
+cd backend
+npx prisma migrate dev
+npx prisma generate
+```
 
-# Nginx reverse proxy ekle
-# SSL sertifikası (Let's Encrypt)
-certbot --nginx -d yourdomain.com
-\`\`\`
+6. Start the backend:
+```bash
+cd backend
+npm run dev
+```
 
-## 📝 Geliştirme Planı
+7. Start the frontend:
+```bash
+npm run dev
+```
 
-### Tamamlanan ✅
-- [x] Proje temel yapısı (Next.js 14, TypeScript, Tailwind)
-- [x] Database şeması (Prisma + PostgreSQL)
-- [x] Yasal sayfalar (KVKK, Mesafeli Satış, Gizlilik, vb.)
-- [x] Güvenlik headers yapılandırması
+8. Open http://localhost:3000
 
-### Yapılacaklar 🚧
-- [ ] iyzico gerçek ödeme entegrasyonu
-- [ ] Email bildirimleri (SMTP configuration)
-- [ ] Ürün görselleri upload sistemi
-- [ ] Sipariş tracking sistemi
-- [ ] Analytics dashboard
-- [ ] Responsive mobil optimizasyon
-- [ ] SEO optimizasyonu
-- [ ] PWA support
-- [ ] Çoklu dil desteği
+## Design System
 
-## 🛡️ Güvenlik
+### Color Palette
+- **Primary (Turquoise):** #14b8a6
+- **Background:** #f9fafb (gray-50)
+- **Text:** #111827 (gray-900)
 
-Bu proje aşağıdaki güvenlik önlemlerini içerir:
+### Typography
+- **Font Family:** System fonts (sans-serif)
+- **Headings:** Bold, various sizes
+- **Body:** Regular weight, 16px base
 
-- ✅ HTTPS zorunlu (HSTS)
-- ✅ XSS koruması
-- ✅ CSRF token'ları
-- ✅ SQL injection koruması (Prisma ORM)
-- ✅ Rate limiting
-- ✅ Secure headers
-- ✅ PCI DSS uyumlu ödeme (iyzico)
-- ✅ Şifrelerin hash'lenmesi (bcrypt)
-- ✅ Environment variables ile hassas bilgi yönetimi
+### Components
+- Clean, minimal design
+- No gradients (single color backgrounds)
+- Consistent spacing and border radius
+- Hover states on interactive elements
 
-## 📄 Lisans
+## API Endpoints
 
-Tüm hakları saklıdır © 2024 Promosyon Oyuncak
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user
 
-## 📞 İletişim
+### Products
+- `GET /api/products` - Get all products
+- `GET /api/products/:id` - Get product by ID
+- `GET /api/products/featured` - Get featured products
+- `GET /api/products/best-sellers` - Get best sellers
 
-- **Web:** promosyonoyuncak.com
-- **Email:** info@promosyonoyuncak.com
-- **Telefon:** +90 (XXX) XXX XX XX
+### Categories
+- `GET /api/categories` - Get all categories
+- `GET /api/categories/:slug` - Get category by slug
 
----
+### Orders
+- `POST /api/orders` - Create new order
+- `GET /api/orders/my` - Get user orders
+- `GET /api/orders/:id` - Get order by ID
 
-**Not:** Bu proje production-ready seviyede güvenlik ve yasal uyumluluk standartlarına sahiptir.
-Deployment öncesi tüm environment variables'ları ve API anahtarlarını güncellemeyi unutmayın.
+### Admin
+- `POST /api/admin/upload` - Upload image (admin only)
+
+## Deployment
+
+### Frontend (Vercel)
+1. Push to GitHub
+2. Connect to Vercel
+3. Set environment variables
+4. Deploy
+
+### Backend (Render)
+1. Push to GitHub
+2. Connect to Render
+3. Set environment variables
+4. Deploy
+
+## Contributing
+
+Developed by @kubilaiswf
+
+## License
+
+Private - All rights reserved
